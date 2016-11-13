@@ -10,7 +10,8 @@ import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 
-import com.tieto.webwicker.eiffel.api.provider.Provider;
+import com.tieto.webwicker.api.provider.Provider;
+
 import com.tieto.webwicker.eiffel.model.Product;
 
 

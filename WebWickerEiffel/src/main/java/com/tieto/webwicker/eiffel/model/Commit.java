@@ -6,7 +6,7 @@ import java.util.List;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.tieto.webwicker.eiffel.api.model.Model;
+import com.tieto.webwicker.api.model.Model;
 
 public class Commit implements Model {
 	private static final long serialVersionUID = 8378160156490764969L;

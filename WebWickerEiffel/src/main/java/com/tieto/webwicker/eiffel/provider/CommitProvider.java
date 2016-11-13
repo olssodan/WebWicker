@@ -8,9 +8,9 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 
 import com.google.gson.JsonObject;
-import com.tieto.webwicker.eiffel.Configuration;
-import com.tieto.webwicker.eiffel.api.persistence.PersistenceLayer;
-import com.tieto.webwicker.eiffel.api.provider.Provider;
+import com.tieto.webwicker.api.conf.Configuration;
+import com.tieto.webwicker.api.persistence.PersistenceLayer;
+import com.tieto.webwicker.api.provider.Provider;
 import com.tieto.webwicker.eiffel.model.Commit;
 
 public class CommitProvider extends Provider<Commit> {
@@ -19,7 +19,7 @@ public class CommitProvider extends Provider<Commit> {
 	private final transient PersistenceLayer persistanceLayer;
 	
 	public CommitProvider() {
-		persistanceLayer = Configuration.getInstance().getPersistanceLayer();
+		persistanceLayer = Configuration.getInstance().getPersistenceLayer();
 	}
 
 	@Override

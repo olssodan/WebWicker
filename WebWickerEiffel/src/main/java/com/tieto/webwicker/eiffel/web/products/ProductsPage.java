@@ -9,11 +9,14 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColu
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-import com.tieto.webwicker.eiffel.api.web.BasePage;
-import com.tieto.webwicker.eiffel.api.web.TopLevelPage;
+import ro.fortsoft.pf4j.Extension;
+
+import com.tieto.webwicker.api.web.BasePage;
+import com.tieto.webwicker.api.web.TopLevelPage;
 import com.tieto.webwicker.eiffel.model.Product;
 import com.tieto.webwicker.eiffel.provider.ProductProvider;
 
+@Extension
 public class ProductsPage extends BasePage implements TopLevelPage {
 	private static final long serialVersionUID = -2628622574983831269L;
 

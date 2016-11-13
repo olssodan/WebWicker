@@ -12,12 +12,15 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-import com.tieto.webwicker.eiffel.api.web.BasePage;
+import ro.fortsoft.pf4j.Extension;
+
+import com.tieto.webwicker.api.web.BasePage;
 import com.tieto.webwicker.eiffel.model.Commit;
 import com.tieto.webwicker.eiffel.model.PatchSet;
 import com.tieto.webwicker.eiffel.model.WorkItem;
 import com.tieto.webwicker.eiffel.provider.CommitProvider;
 
+@Extension
 public class CommitPage extends BasePage {
 	private static final long serialVersionUID = -1879929547602037385L;
 	private static final List<String> approved = Arrays.asList(new String[]{"+2"});

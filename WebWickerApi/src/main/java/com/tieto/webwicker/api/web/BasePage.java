@@ -13,7 +13,9 @@ import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.reflections.Reflections;
 
-public abstract class BasePage extends WebPage {
+import ro.fortsoft.pf4j.ExtensionPoint;
+
+public abstract class BasePage extends WebPage implements ExtensionPoint {
 	private static final long serialVersionUID = 1958619830536738136L;
 	private final transient Reflections reflections = new Reflections("com.tieto.ciweb");
 	private final List<Class<? extends TopLevelPage>> subPages;

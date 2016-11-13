@@ -2,8 +2,8 @@ package com.tieto.webwicker.eiffel.web.projects;
 
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-import com.tieto.webwicker.eiffel.api.web.BasePage;
-import com.tieto.webwicker.eiffel.api.web.TopLevelPage;
+import com.tieto.webwicker.api.web.BasePage;
+import com.tieto.webwicker.api.web.TopLevelPage;
 
 public class ProjectsPage extends BasePage implements TopLevelPage {
 	private static final long serialVersionUID = -9107302898812653839L;

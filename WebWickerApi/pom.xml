@@ -21,11 +21,11 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.tieto.webwicker</groupId>
-	<artifactId>WebWickerEiffel</artifactId>
+	<artifactId>WebWickerApi</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0.0-SNAPSHOT</version>
 		<!-- TODO project name  -->
-	<name>WebWicker Eiffel components</name>
+	<name>WebWicker</name>
 	<description></description>
 	<!--
 		<organization>
@@ -42,19 +42,36 @@
 	</licenses>
 	<properties>
 		<wicket.version>7.3.0</wicket.version>
+		<wicket-plugin.version>0.5.0</wicket-plugin.version>
 		<jetty9.version>9.2.13.v20150730</jetty9.version>
 		<log4j.version>2.5</log4j.version>
 		<junit.version>4.12</junit.version>
 		<reflections.version>0.9.10</reflections.version>
-		<rabbitmq.version>3.6.5</rabbitmq.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- allowed values: R7, 1.0, 1.5, 2.0 or none -->
 		<wtp.version>none</wtp.version>
 	</properties>
 	<dependencies>
 		<!--  WICKET DEPENDENCIES -->
-		<!-- OPTIONAL DEPENDENCY -->
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-core</artifactId>
+			<version>${wicket.version}</version>
+		</dependency>
+		<!-- OPTIONAL WICKET DEPENDENCY -->
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-extensions</artifactId>
+			<version>${wicket.version}</version>
+		</dependency>
 
+		<!-- PL4J DEPENDENCIES -->
+        <dependency>
+            <groupId>ro.fortsoft.wicket.plugin</groupId>
+            <artifactId>wicket-plugin</artifactId>
+            <version>${wicket-plugin.version}</version>
+		</dependency>
+		
 		<!-- LOGGING DEPENDENCIES - LOG4J -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
@@ -77,20 +94,20 @@
 
 		<!--  JETTY DEPENDENCIES FOR TESTING  -->
 		<dependency>
-			<groupId>com.rabbitmq</groupId>
-			<artifactId>amqp-client</artifactId>
-			<version>${rabbitmq.version}</version>
+			<groupId>org.eclipse.jetty.aggregate</groupId>
+			<artifactId>jetty-all</artifactId>
+			<version>${jetty9.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.reflections</groupId>
+			<artifactId>reflections</artifactId>
+			<version>${reflections.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.7</version>
-		</dependency>
-		<dependency>
-			<groupId>com.tieto.webwicker</groupId>
-			<artifactId>WebWickerApi</artifactId>
-			<version>${project.version}</version>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<build>

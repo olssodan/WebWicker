@@ -15,12 +15,15 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-import com.tieto.webwicker.eiffel.api.web.BasePage;
-import com.tieto.webwicker.eiffel.api.web.TopLevelPage;
-import com.tieto.webwicker.eiffel.lib.web.LinkPanel;
+import ro.fortsoft.pf4j.Extension;
+
+import com.tieto.webwicker.api.web.BasePage;
+import com.tieto.webwicker.api.web.TopLevelPage;
+import com.tieto.webwicker.lib.web.LinkPanel;
 import com.tieto.webwicker.eiffel.model.Commit;
 import com.tieto.webwicker.eiffel.provider.CommitProvider;
 
+@Extension
 public class CommitsPage extends BasePage implements TopLevelPage{
 	private static final long serialVersionUID = 1386775624549749182L;
 	private static final List<String> approved = Arrays.asList(new String[]{"+2"});

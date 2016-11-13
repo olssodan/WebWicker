@@ -1,7 +1,7 @@
 package com.tieto.webwicker.eiffel.model;
 
 import com.google.gson.JsonObject;
-import com.tieto.webwicker.eiffel.api.model.Model;
+import com.tieto.webwicker.api.model.Model;
 
 public class WorkItem implements Model {
 	private static final long serialVersionUID = 6070383652943497942L;

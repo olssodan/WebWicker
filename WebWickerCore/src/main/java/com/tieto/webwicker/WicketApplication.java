@@ -3,7 +3,8 @@ package com.tieto.webwicker;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 
-import com.tieto.webwicker.api.source.Source;
+import com.tieto.webwicker.api.conf.Configuration;
+import com.tieto.webwicker.persistance.InMemoryStorage;
 import com.tieto.webwicker.web.HomePage;
 
 /**
@@ -32,7 +33,7 @@ public class WicketApplication extends WebApplication
 		super.init();
 		
 		// Force initiation of configuration
-		Configuration.getInstance();
+		Configuration.getInstance().setPersistanceLayer(new InMemoryStorage());
 		
 		//Source source = new RabbitMQSource();
 		//source.init(Configuration.getInstance().getPersistanceLayer());

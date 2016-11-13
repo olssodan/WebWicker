@@ -1,7 +1,7 @@
 package com.tieto.webwicker.eiffel.model;
 
 import com.google.gson.JsonObject;
-import com.tieto.webwicker.eiffel.api.model.Model;
+import com.tieto.webwicker.api.model.Model;
 
 public class PatchSet implements Model {
 	private static final long serialVersionUID = -3358763923428510530L;
