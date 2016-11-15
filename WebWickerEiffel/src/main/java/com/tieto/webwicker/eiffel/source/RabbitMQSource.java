@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.concurrent.TimeoutException;
 
+import ro.fortsoft.pf4j.Extension;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -23,7 +25,8 @@ import com.tieto.webwicker.eiffel.model.Commit;
 import com.tieto.webwicker.eiffel.model.PatchSet;
 import com.tieto.webwicker.eiffel.model.WorkItem;
 
-public class RabbitMQSource implements Source {
+@Extension
+public class RabbitMQSource extends Source {
 	private static final String EXCHANGE_NAME = "eiffel.poc";
 	private PersistenceLayer persistenceLayer = null;
 

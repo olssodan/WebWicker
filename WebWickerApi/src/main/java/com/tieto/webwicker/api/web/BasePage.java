@@ -11,13 +11,14 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.reflections.Reflections;
+
+import com.tieto.webwicker.api.conf.Configuration;
 
 import ro.fortsoft.pf4j.ExtensionPoint;
 
 public abstract class BasePage extends WebPage implements ExtensionPoint {
 	private static final long serialVersionUID = 1958619830536738136L;
-	private final transient Reflections reflections = new Reflections("com.tieto.ciweb");
+	//private final transient Reflections reflections = new Reflections("com.tieto.ciweb");
 	private final List<Class<? extends TopLevelPage>> subPages;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -42,7 +43,10 @@ public abstract class BasePage extends WebPage implements ExtensionPoint {
 	
 	private final List<Class<? extends TopLevelPage>> initiateSubPages() {
 		List<Class<? extends TopLevelPage>> subPages = new LinkedList<>();
-		subPages.addAll(reflections.getSubTypesOf(TopLevelPage.class));
+		subPages.add(Configuration.getInstance().getStartPageClass());
+		//subPages.addAll(Configuration.getInstance().getInjectedPages());
+		
+		//subPages.addAll(reflections.getSubTypesOf(TopLevelPage.class));
 		subPages.sort(new Comparator<Class<? extends TopLevelPage>>() {
 			@Override
 			public int compare(Class<? extends TopLevelPage> o1,

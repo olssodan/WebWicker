@@ -60,36 +60,11 @@
 		</dependency>
 		
 		<!-- WICKET DEPENDENCIES -->
-		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-core</artifactId>
-			<version>${wicket.version}</version>
-		</dependency>
 		<!-- OPTIONAL WICKET DEPENDENCY -->
-		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-extensions</artifactId>
-			<version>${wicket.version}</version>
-		</dependency>
 
 		<!-- PL4J DEPENDENCIES -->
-        <dependency>
-            <groupId>ro.fortsoft.wicket.plugin</groupId>
-            <artifactId>wicket-plugin</artifactId>
-            <version>${wicket-plugin.version}</version>
-		</dependency>
 		
 		<!-- LOGGING DEPENDENCIES - LOG4J -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-slf4j-impl</artifactId>
-			<version>${log4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>${log4j.version}</version>
-		</dependency>
 
 		<!--  JUNIT DEPENDENCY FOR TESTING -->
 		<dependency>
@@ -105,16 +80,6 @@
 			<artifactId>jetty-all</artifactId>
 			<version>${jetty9.version}</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.reflections</groupId>
-			<artifactId>reflections</artifactId>
-			<version>${reflections.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.7</version>
 		</dependency>
 	</dependencies>
 	<build>

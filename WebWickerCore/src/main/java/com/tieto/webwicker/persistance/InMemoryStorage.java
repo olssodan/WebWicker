@@ -12,7 +12,7 @@ import com.google.gson.JsonObject;
 import com.tieto.webwicker.api.persistence.PersistenceLayer;
 import com.tieto.webwicker.lib.json.ExtJsonElement;
 
-public class InMemoryStorage implements PersistenceLayer {
+public class InMemoryStorage extends PersistenceLayer {
 	private final Map<String,Map<String,JsonObject>> collections;
 	
 	public InMemoryStorage() {
