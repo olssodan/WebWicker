@@ -9,6 +9,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
@@ -16,14 +17,14 @@ import com.tieto.webwicker.api.conf.Configuration;
 
 import ro.fortsoft.pf4j.ExtensionPoint;
 
-public abstract class BasePage extends WebPage implements ExtensionPoint {
+public abstract class WebWickerPage extends Panel {
 	private static final long serialVersionUID = 1958619830536738136L;
 	//private final transient Reflections reflections = new Reflections("com.tieto.ciweb");
 	private final List<Class<? extends TopLevelPage>> subPages;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public BasePage(final PageParameters parameters) {
-		super(parameters);
+	public WebWickerPage(final String id, final PageParameters parameters) {
+		super(id);
 		RepeatingView listItems = new RepeatingView("listItems");
 		subPages = initiateSubPages();
 

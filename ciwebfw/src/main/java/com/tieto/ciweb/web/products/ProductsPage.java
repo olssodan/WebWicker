@@ -9,18 +9,18 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColu
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-import com.tieto.ciweb.api.web.BasePage;
-import com.tieto.ciweb.api.web.TopLevelPage;
+import com.tieto.ciweb.api.web.WebWickerPage;
+import com.tieto.ciweb.api.web.WebWickerPageFactory;
 import com.tieto.ciweb.model.Product;
 import com.tieto.ciweb.provider.ProductProvider;
 
-public class ProductsPage extends BasePage implements TopLevelPage {
+public class ProductsPage extends WebWickerPage {
 	private static final long serialVersionUID = -2628622574983831269L;
 
 	public static final int ORDER = 300;
 
-	public ProductsPage(final PageParameters parameters) {
-		super(parameters);
+	public ProductsPage(final String id, final PageParameters parameters) {
+		super(id);
 
 		final ProductProvider productProvider = new ProductProvider();
         
@@ -34,4 +34,28 @@ public class ProductsPage extends BasePage implements TopLevelPage {
          
         add(table);
     }
+	
+	public static class ProductsPageFactory extends WebWickerPageFactory {
+
+		@Override
+		public WebWickerPage create(String id, PageParameters pageParameters) {
+			return new ProductsPage(id, pageParameters);
+		}
+
+		@Override
+		public boolean isTopLevelPage() {
+			return true;
+		}
+
+		@Override
+		public String getName() {
+			return "Products";
+		}
+
+		@Override
+		public int getOrder() {
+			return ORDER;
+		}
+		
+	}
 }

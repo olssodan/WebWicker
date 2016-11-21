@@ -15,21 +15,21 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-import com.tieto.ciweb.api.web.BasePage;
-import com.tieto.ciweb.api.web.TopLevelPage;
+import com.tieto.ciweb.api.web.WebWickerPage;
+import com.tieto.ciweb.api.web.WebWickerPageFactory;
 import com.tieto.ciweb.lib.web.LinkPanel;
 import com.tieto.ciweb.model.Commit;
 import com.tieto.ciweb.provider.CommitProvider;
 
-public class CommitsPage extends BasePage implements TopLevelPage{
+public class CommitsPage extends WebWickerPage {
 	private static final long serialVersionUID = 1386775624549749182L;
 	private static final List<String> approved = Arrays.asList(new String[]{"+2"});
 	private static final List<String> verified = Arrays.asList(new String[]{"+1"});
 
 	public static final int ORDER = 100;
 
-	public CommitsPage(final PageParameters parameters) {
-		super(parameters);
+	public CommitsPage(final String id, final PageParameters parameters) {
+		super(id);
 
 		final CommitProvider commitProvider = new CommitProvider();
         
@@ -40,7 +40,7 @@ public class CommitsPage extends BasePage implements TopLevelPage{
 			@SuppressWarnings("rawtypes")
 			public void populateItem(Item cellItem, String componentId, IModel model) {
 				final Commit commit = (Commit)model.getObject();
-				cellItem.add(new LinkPanel<Commit>(componentId, commit.getChangeId(), commit.getChangeId(), CommitPage.class));
+				cellItem.add(new LinkPanel<Commit>(componentId, commit.getChangeId(), commit.getChangeId(), "Commit"));
 			}
         });
         columns.add(new PropertyColumn<Commit, String>(new Model<String>("Author"), "author", "author"));
@@ -125,5 +125,29 @@ public class CommitsPage extends BasePage implements TopLevelPage{
 			return new AttributeAppender("style", "color:green");
 		}
 		return new AttributeAppender("style", "color:red");
+	}
+	
+	public static class CommitsPageFactory extends WebWickerPageFactory {
+		private static final long serialVersionUID = -1749951474362697919L;
+
+		@Override
+		public WebWickerPage create(String id, PageParameters pageParameters) {
+			return new CommitsPage(id, pageParameters);
+		}
+
+		@Override
+		public boolean isTopLevelPage() {
+			return true;
+		}
+
+		@Override
+		public String getName() {
+			return "Commits";
+		}
+
+		@Override
+		public int getOrder() {
+			return ORDER;
+		}
 	}
 }

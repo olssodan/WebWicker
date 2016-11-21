@@ -12,13 +12,14 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-import com.tieto.ciweb.api.web.BasePage;
+import com.tieto.ciweb.api.web.WebWickerPage;
+import com.tieto.ciweb.api.web.WebWickerPageFactory;
 import com.tieto.ciweb.model.Commit;
 import com.tieto.ciweb.model.PatchSet;
 import com.tieto.ciweb.model.WorkItem;
 import com.tieto.ciweb.provider.CommitProvider;
 
-public class CommitPage extends BasePage {
+public class CommitPage extends WebWickerPage {
 	private static final long serialVersionUID = -1879929547602037385L;
 	private static final List<String> approved = Arrays.asList(new String[]{"+2"});
 	private static final List<String> partlyApproved = Arrays.asList(new String[]{"+1"});
@@ -27,12 +28,12 @@ public class CommitPage extends BasePage {
 	private static final List<String> notVerified = Arrays.asList(new String[]{"-1"});
 
 	@SuppressWarnings({"serial", "rawtypes"})
-	public CommitPage(PageParameters parameters) {
-		super(parameters);
+	public CommitPage(final String id, final PageParameters parameters) {
+		super(id);
 		
-		final String id = parameters.get("id").toString("");
+		final String itemId = parameters.get("id").toString("");
 		final CommitProvider commitProvider = new CommitProvider();
-		final Commit commit = commitProvider.getInstance(id);
+		final Commit commit = commitProvider.getInstance(itemId);
 		
 		final String codeReview = commit.getLatestPatchSet().getCodeReviewed();
 		final String verified = commit.getLatestPatchSet().getVerified();
@@ -118,5 +119,29 @@ public class CommitPage extends BasePage {
 			return new AttributeAppender("style", "color:green");
 		}
 		return new AttributeAppender("style", "color:red");
+	}
+	
+	public static class CommitPageFactory extends WebWickerPageFactory {
+		private static final long serialVersionUID = -6004897366175631499L;
+
+		@Override
+		public WebWickerPage create(String id, PageParameters pageParameters) {
+			return new CommitPage(id, pageParameters);
+		}
+
+		@Override
+		public boolean isTopLevelPage() {
+			return false;
+		}
+
+		@Override
+		public String getName() {
+			return "Commit";
+		}
+
+		@Override
+		public int getOrder() {
+			return 0;
+		}
 	}
 }

@@ -1,26 +1,24 @@
-package com.tieto.ciweb.web.projects;
+package com.tieto.ciweb.web;
 
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import com.tieto.ciweb.api.web.WebWickerPage;
 import com.tieto.ciweb.api.web.WebWickerPageFactory;
 
-public class ProjectsPage extends WebWickerPage {
+public class StartPage extends WebWickerPage {
 	private static final long serialVersionUID = -9107302898812653839L;
 
-	public static final int ORDER = 200;
+	public static final int ORDER = 0;
 
-	public ProjectsPage(final String id, final PageParameters parameters) {
+	public StartPage(final String id, final PageParameters parameters) {
 		super(id);
-
-		// TODO Add your page's components here
     }
 	
-	public static class ProjectsPageFactory extends WebWickerPageFactory {
+	public static class StartPageFactory extends WebWickerPageFactory {
 
 		@Override
 		public WebWickerPage create(String id, PageParameters pageParameters) {
-			return new ProjectsPage(id, pageParameters);
+			return new StartPage(id, pageParameters);
 		}
 
 		@Override
@@ -30,7 +28,7 @@ public class ProjectsPage extends WebWickerPage {
 
 		@Override
 		public String getName() {
-			return "Projects";
+			return "Home";
 		}
 
 		@Override

@@ -1,9 +1,14 @@
 package com.tieto.ciweb;
 
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.wicket.markup.html.WebPage;
 
 import com.tieto.ciweb.api.persistence.PersistenceLayer;
+import com.tieto.ciweb.api.web.WebWickerPageFactory;
 import com.tieto.ciweb.model.Commit;
 import com.tieto.ciweb.model.PatchSet;
 import com.tieto.ciweb.model.Product;
@@ -14,6 +19,9 @@ public class Configuration {
 	private static Configuration INSTANCE = null;
 	
 	private final PersistenceLayer persistanceLayer;
+	private final Map<String,WebWickerPageFactory> pageFactories;
+	
+	private Class<? extends WebPage> mainPageClass;
 	
 	public static final Configuration getInstance() {
 		if(INSTANCE == null) {
@@ -24,14 +32,14 @@ public class Configuration {
 
 	private Configuration() {
 		persistanceLayer = new InMemoryStorage();
-		
+		pageFactories = new LinkedHashMap<>();
 		populatePersistanceLayer();
 	}
 	
 	private void populatePersistanceLayer() {
 		List<Commit> commits = generateCommits();
 		for(Commit commit : commits) {
-			//persistanceLayer.store("commits", commit.toJson(), commit.getId());
+			persistanceLayer.store("commits", commit.toJson(), commit.getId());
 		}
 
 		persistanceLayer.store("products", new Product("Artifact1","10.0","11.0.5","-").toJson(), "Artifact1");
@@ -43,7 +51,6 @@ public class Configuration {
 		persistanceLayer.store("products", new Product("Artifact7","5.0","6.0.2","-").toJson(), "Artifact7");
 		persistanceLayer.store("products", new Product("Artifact8","7.0","7.0","ee2bdc22b9936161c3e9bf5000f324517542a6f01").toJson(), "Artifact8");
 		persistanceLayer.store("products", new Product("Artifact9","3.0","4.0.2","-").toJson(), "Artifact9");
-
 	}
 
 	private List<Commit> generateCommits() {
@@ -87,4 +94,22 @@ public class Configuration {
 		return persistanceLayer;
 	}
 	
+	public WebWickerPageFactory getPageFactory(final String page) {
+		if(!pageFactories.containsKey(page)) {
+			return pageFactories.get("Home");
+		}
+		return pageFactories.get(page);
+	}
+	
+	public void setPageFactory(final String page, final WebWickerPageFactory factory) {
+		pageFactories.put(page, factory);
+	}
+	
+	public void setMainPageClass(Class<? extends WebPage> mainPageClass) {
+		this.mainPageClass = mainPageClass;
+	}
+	
+	public Class<? extends WebPage> getMainPageClass() {
+		return mainPageClass;
+	}
 }
