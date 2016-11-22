@@ -14,6 +14,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import ro.fortsoft.pf4j.Extension;
 
+import com.tieto.webwicker.api.conf.Configuration;
 import com.tieto.webwicker.api.web.WebWickerPage;
 import com.tieto.webwicker.api.web.WebWickerPageFactory;
 import com.tieto.webwicker.eiffel.model.Commit;
@@ -30,11 +31,11 @@ public class CommitPage extends WebWickerPage {
 	private static final List<String> notVerified = Arrays.asList(new String[]{"-1"});
 
 	@SuppressWarnings({"serial", "rawtypes"})
-	public CommitPage(String id, PageParameters parameters) {
+	public CommitPage(String id, PageParameters parameters, Configuration configuration) {
 		super(id);
 		
 		final String commitId = parameters.get("id").toString("");
-		final CommitProvider commitProvider = new CommitProvider();
+		final CommitProvider commitProvider = new CommitProvider(configuration);
 		final Commit commit = commitProvider.getInstance(commitId);
 		
 		final String codeReview = commit.getLatestPatchSet().getCodeReviewed();
@@ -128,8 +129,8 @@ public class CommitPage extends WebWickerPage {
 		private static final long serialVersionUID = -6004897366175631499L;
 
 		@Override
-		public WebWickerPage create(String id, PageParameters pageParameters) {
-			return new CommitPage(id, pageParameters);
+		public WebWickerPage create(String id, PageParameters pageParameters, Configuration configuration) {
+			return new CommitPage(id, pageParameters, configuration);
 		}
 
 		@Override

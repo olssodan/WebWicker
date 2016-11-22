@@ -4,7 +4,7 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.tieto.webwicker.WicketApplication;
+import com.tieto.webwicker.WebWickerApplication;
 import com.tieto.webwicker.web.HomePage;
 
 /**
@@ -17,7 +17,7 @@ public class TestHomePage
 	@Before
 	public void setUp()
 	{
-		tester = new WicketTester(new WicketApplication());
+		tester = new WicketTester(new WebWickerApplication());
 	}
 
 	@Test

@@ -2,6 +2,7 @@ package com.tieto.webwicker.eiffel.web.projects;
 
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
+import com.tieto.webwicker.api.conf.Configuration;
 import com.tieto.webwicker.api.web.WebWickerPage;
 import com.tieto.webwicker.api.web.WebWickerPageFactory;
 
@@ -10,7 +11,7 @@ public class ProjectsPage extends WebWickerPage {
 
 	public static final int ORDER = 200;
 
-	public ProjectsPage(final String id, final PageParameters parameters) {
+	public ProjectsPage(final String id, final PageParameters parameters, final Configuration configuration) {
 		super(id);
 
 		// TODO Add your page's components here
@@ -20,8 +21,8 @@ public class ProjectsPage extends WebWickerPage {
 		private static final long serialVersionUID = 3168892865361642500L;
 
 		@Override
-		public WebWickerPage create(String id, PageParameters pageParameters) {
-			return new ProjectsPage(id, pageParameters);
+		public WebWickerPage create(String id, PageParameters pageParameters, Configuration configuration) {
+			return new ProjectsPage(id, pageParameters, configuration);
 		}
 
 		@Override

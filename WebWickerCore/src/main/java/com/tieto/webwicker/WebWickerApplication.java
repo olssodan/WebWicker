@@ -10,6 +10,7 @@ import ro.fortsoft.wicket.plugin.PluginManagerInitializer;
 
 import com.tieto.webwicker.api.conf.Configuration;
 import com.tieto.webwicker.api.web.WebWickerPageFactory;
+import com.tieto.webwicker.conf.ConfigurationImpl;
 import com.tieto.webwicker.persistance.InMemoryStorage;
 import com.tieto.webwicker.web.ErrorPage.ErrorPageFactory;
 import com.tieto.webwicker.web.HomePage;
@@ -21,8 +22,9 @@ import com.tieto.webwicker.web.StartPage.StartPageFactory;
  * 
  * @see com.tieto.webwicker.Start#main(String[])
  */
-public class WicketApplication extends WebApplication
+public class WebWickerApplication extends WebApplication
 {
+	private final ConfigurationImpl configuration = new ConfigurationImpl();
 	/**
 	 * @see org.apache.wicket.Application#getHomePage()
 	 */
@@ -32,6 +34,10 @@ public class WicketApplication extends WebApplication
 		return HomePage.class;
 	}
 
+	public static WebWickerApplication get() {
+		return (WebWickerApplication) WebApplication.get();
+	}
+	
 	/**
 	 * @see org.apache.wicket.Application#init()
 	 */
@@ -40,18 +46,16 @@ public class WicketApplication extends WebApplication
 	{
 		super.init();
 		
-		Configuration.getInstance().setPersistanceLayer(new InMemoryStorage());
-		Configuration.getInstance().setMainPageClass(getHomePage());
-		Configuration.getInstance().setHomePageFactory(new StartPageFactory());
-		Configuration.getInstance().setErrorPageFactory(new ErrorPageFactory());
+		configuration.setPersistanceLayer(new InMemoryStorage());
+		configuration.setMainPageClass(getHomePage());
+		configuration.setHomePageFactory(new StartPageFactory());
+		configuration.setErrorPageFactory(new ErrorPageFactory());
 
 		PluginManager manager = getPluginManager();
 		
-		System.err.println("Trying to load all WebWickerPageFactory classes");
 		List<WebWickerPageFactory> list = manager.getExtensions(WebWickerPageFactory.class);
-		System.err.println("Found "+list.size()+" WebWickerPageFactory extensions");
 		for(WebWickerPageFactory factory : list) {
-			Configuration.getInstance().setPageFactory(factory.getPageClassName(), factory);
+			configuration.setPageFactory(factory.getPageClassName(), factory);
 		}
 		
 		// Force initiation of configuration
@@ -59,6 +63,10 @@ public class WicketApplication extends WebApplication
 		//source.init(Configuration.getInstance().getPersistanceLayer());
 		//Thread sourceThread = new Thread(source);
 		//sourceThread.start();
+	}
+	
+	public Configuration getConfiguration() {
+		return configuration;
 	}
 	
 	public PluginManager getPluginManager() {

@@ -10,10 +10,13 @@ import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 
+import ro.fortsoft.pf4j.Extension;
+
+import com.tieto.webwicker.api.conf.Configuration;
+import com.tieto.webwicker.api.model.Model;
 import com.tieto.webwicker.api.provider.Provider;
-
+import com.tieto.webwicker.api.provider.ProviderFactory;
 import com.tieto.webwicker.eiffel.model.Product;
-
 
 public class ProductProvider extends Provider<Product> {
 	private static final long serialVersionUID = 6839101608020231857L;
@@ -86,5 +89,18 @@ public class ProductProvider extends Provider<Product> {
 	@Override
 	public Product getInstance(String id) {
 		return null;
+	}
+	
+	@Extension
+	public static class ProductProviderFactory extends ProviderFactory<Product> {
+		public Provider<Product> create(Configuration configuration) {
+			return new ProductProvider();
+		}
+
+		@Override
+		public Class<? extends Model> getModelClass() {
+			return Product.class;
+		}
+		
 	}
 }

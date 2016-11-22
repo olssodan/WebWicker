@@ -11,6 +11,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import ro.fortsoft.pf4j.Extension;
 
+import com.tieto.webwicker.api.conf.Configuration;
 import com.tieto.webwicker.api.web.WebWickerPage;
 import com.tieto.webwicker.api.web.WebWickerPageFactory;
 import com.tieto.webwicker.eiffel.model.Product;
@@ -21,7 +22,7 @@ public class ProductsPage extends WebWickerPage {
 
 	public static final int ORDER = 300;
 
-	public ProductsPage(final String id, final PageParameters parameters) {
+	public ProductsPage(final String id, final PageParameters parameters, final Configuration configuration) {
 		super(id);
 
 		final ProductProvider productProvider = new ProductProvider();
@@ -42,8 +43,8 @@ public class ProductsPage extends WebWickerPage {
 		private static final long serialVersionUID = -7915844907031232853L;
 
 		@Override
-		public WebWickerPage create(String id, PageParameters pageParameters) {
-			return new ProductsPage(id, pageParameters);
+		public WebWickerPage create(String id, PageParameters pageParameters, Configuration configuration) {
+			return new ProductsPage(id, pageParameters, configuration);
 		}
 
 		@Override

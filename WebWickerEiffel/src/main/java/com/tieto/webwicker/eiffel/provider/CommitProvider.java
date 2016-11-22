@@ -7,10 +7,14 @@ import java.util.List;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 
+import ro.fortsoft.pf4j.Extension;
+
 import com.google.gson.JsonObject;
 import com.tieto.webwicker.api.conf.Configuration;
+import com.tieto.webwicker.api.model.Model;
 import com.tieto.webwicker.api.persistence.PersistenceLayer;
 import com.tieto.webwicker.api.provider.Provider;
+import com.tieto.webwicker.api.provider.ProviderFactory;
 import com.tieto.webwicker.eiffel.model.Commit;
 
 public class CommitProvider extends Provider<Commit> {
@@ -18,8 +22,8 @@ public class CommitProvider extends Provider<Commit> {
 	
 	private final transient PersistenceLayer persistanceLayer;
 	
-	public CommitProvider() {
-		persistanceLayer = Configuration.getInstance().getPersistenceLayer();
+	public CommitProvider(Configuration configuration) {
+		persistanceLayer = configuration.getPersistenceLayer();
 	}
 
 	@Override
@@ -37,7 +41,6 @@ public class CommitProvider extends Provider<Commit> {
 	@Override
 	public long size() {
 		return persistanceLayer.count("commits", "");
-		//return commits.size();
 	}
 
 	@Override
@@ -68,4 +71,16 @@ public class CommitProvider extends Provider<Commit> {
 		return null;
 	}
 
+	@Extension
+	public static class CommitProviderFactory extends ProviderFactory<Commit> {
+		@Override
+		public Provider<Commit> create(Configuration configuration) {
+			return new CommitProvider(configuration);
+		}
+
+		@Override
+		public Class<? extends Model> getModelClass() {
+			return Commit.class;
+		}
+	}
 }

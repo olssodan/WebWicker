@@ -18,6 +18,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import ro.fortsoft.pf4j.Extension;
 
 import com.tieto.webwicker.lib.web.LinkPanel;
+import com.tieto.webwicker.api.conf.Configuration;
 import com.tieto.webwicker.api.web.WebWickerPage;
 import com.tieto.webwicker.api.web.WebWickerPageFactory;
 import com.tieto.webwicker.eiffel.model.Commit;
@@ -30,10 +31,10 @@ public class CommitsPage extends WebWickerPage {
 
 	public static final int ORDER = 100;
 
-	public CommitsPage(final String id, final PageParameters parameters) {
+	public CommitsPage(final String id, final PageParameters parameters, final Configuration configuration) {
 		super(id);
 
-		final CommitProvider commitProvider = new CommitProvider();
+		final CommitProvider commitProvider = new CommitProvider(configuration);
         
         List<IColumn<Commit,String>> columns = new ArrayList<>();
         columns.add(new TextFilteredPropertyColumn<Commit,String,String>(new Model<String>("Change ID"), "changeId", "changeId"){
@@ -134,8 +135,8 @@ public class CommitsPage extends WebWickerPage {
 		private static final long serialVersionUID = -1749951474362697919L;
 
 		@Override
-		public WebWickerPage create(String id, PageParameters pageParameters) {
-			return new CommitsPage(id, pageParameters);
+		public WebWickerPage create(String id, PageParameters pageParameters, Configuration configuration) {
+			return new CommitsPage(id, pageParameters, configuration);
 		}
 
 		@Override

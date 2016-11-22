@@ -18,19 +18,21 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
+import com.tieto.webwicker.api.conf.Configuration;
 import com.tieto.webwicker.api.persistence.PersistenceLayer;
 import com.tieto.webwicker.api.source.Source;
+import com.tieto.webwicker.api.source.SourceFactory;
 import com.tieto.webwicker.lib.json.ExtJsonElement;
 import com.tieto.webwicker.eiffel.model.Commit;
 import com.tieto.webwicker.eiffel.model.PatchSet;
 import com.tieto.webwicker.eiffel.model.WorkItem;
 
-@Extension
-public class RabbitMQSource extends Source {
+public class RabbitMQSource implements Source {
 	private static final String EXCHANGE_NAME = "eiffel.poc";
 	private PersistenceLayer persistenceLayer = null;
 
-	public RabbitMQSource() {
+	public RabbitMQSource(final Configuration configuration) {
+		persistenceLayer = configuration.getPersistenceLayer();
 	}
 
 	@Override
@@ -65,11 +67,6 @@ public class RabbitMQSource extends Source {
 		}
 	}
 
-	@Override
-	public void init(PersistenceLayer persistenceLayer) {
-		this.persistenceLayer = persistenceLayer;
-	}
-	
 	private void handleMessage(final String message) {
 		try {
 			final ExtJsonElement jsonMsg = new ExtJsonElement(message);
@@ -177,6 +174,14 @@ public class RabbitMQSource extends Source {
 				commit.getPatchSet(patchSetId).setUpdated(timeStamp.toString());
 				persistenceLayer.store("commits", commit.toJson(), commit.getId());
 			}
+		}
+	}
+	
+	@Extension
+	public static class RabbitMQSourceFactory extends SourceFactory {
+		@Override
+		public Source create(Configuration configuration) {
+			return new RabbitMQSource(configuration);
 		}
 	}
 }

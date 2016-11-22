@@ -9,10 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.JsonObject;
+import com.tieto.webwicker.api.conf.Configuration;
 import com.tieto.webwicker.api.persistence.PersistenceLayer;
+import com.tieto.webwicker.api.persistence.PersistenceLayerFactory;
 import com.tieto.webwicker.lib.json.ExtJsonElement;
 
-public class InMemoryStorage extends PersistenceLayer {
+public class InMemoryStorage implements PersistenceLayer {
 	private final Map<String,Map<String,JsonObject>> collections;
 	
 	public InMemoryStorage() {
@@ -65,5 +67,12 @@ public class InMemoryStorage extends PersistenceLayer {
 	@Override
 	public long count(String collection, String query) {
 		return collections.containsKey(collection) ? collections.get(collection).size() : 0;
+	}
+	
+	public static class InMemoryStorageFactory extends PersistenceLayerFactory {
+		@Override
+		public PersistenceLayer create(Configuration configuration) {
+			return new InMemoryStorage();
+		}
 	}
 }
