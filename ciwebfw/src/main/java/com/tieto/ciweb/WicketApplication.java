@@ -5,6 +5,7 @@ import org.apache.wicket.protocol.http.WebApplication;
 
 import com.tieto.ciweb.api.source.Source;
 import com.tieto.ciweb.source.rabbitmq.RabbitMQSource;
+import com.tieto.ciweb.web.ErrorPage;
 import com.tieto.ciweb.web.HomePage;
 import com.tieto.ciweb.web.StartPage;
 import com.tieto.ciweb.web.commits.CommitPage;
@@ -47,5 +48,6 @@ public class WicketApplication extends WebApplication
 		Configuration.getInstance().setPageFactory("Home", new StartPage.StartPageFactory());
 		Configuration.getInstance().setPageFactory("Commits", new CommitsPage.CommitsPageFactory());
 		Configuration.getInstance().setPageFactory("Commit", new CommitPage.CommitPageFactory());
+		Configuration.getInstance().setPageFactory("ERROR", new ErrorPage.ErrorPageFactory());
 	}
 }

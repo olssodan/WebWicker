@@ -1,9 +1,9 @@
-package com.tieto.ciweb.web;
+package com.tieto.webwicker.web;
 
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-import com.tieto.ciweb.api.web.WebWickerPage;
-import com.tieto.ciweb.api.web.WebWickerPageFactory;
+import com.tieto.webwicker.api.web.WebWickerPage;
+import com.tieto.webwicker.api.web.WebWickerPageFactory;
 
 public class StartPage extends WebWickerPage {
 	private static final long serialVersionUID = -9107302898812653839L;
@@ -28,13 +28,18 @@ public class StartPage extends WebWickerPage {
 		}
 
 		@Override
-		public String getName() {
+		public String getPageTitle() {
 			return "Home";
 		}
 
 		@Override
 		public int getOrder() {
 			return ORDER;
+		}
+
+		@Override
+		public String getPageClassName() {
+			return StartPage.class.getName();
 		}
 		
 	}

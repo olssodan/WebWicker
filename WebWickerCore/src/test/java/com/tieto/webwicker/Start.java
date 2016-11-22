@@ -1,4 +1,4 @@
-package com.tieto.ciweb;
+package com.tieto.webwicker;
 
 import java.lang.management.ManagementFactory;
 

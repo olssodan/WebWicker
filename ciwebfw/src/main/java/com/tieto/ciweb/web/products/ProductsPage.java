@@ -36,6 +36,7 @@ public class ProductsPage extends WebWickerPage {
     }
 	
 	public static class ProductsPageFactory extends WebWickerPageFactory {
+		private static final long serialVersionUID = 6907710666107276210L;
 
 		@Override
 		public WebWickerPage create(String id, PageParameters pageParameters) {

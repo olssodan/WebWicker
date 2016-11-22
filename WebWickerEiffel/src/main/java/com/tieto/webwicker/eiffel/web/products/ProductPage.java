@@ -4,13 +4,44 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import ro.fortsoft.pf4j.Extension;
 
-import com.tieto.webwicker.api.web.BasePage;
+import com.tieto.webwicker.api.web.WebWickerPage;
+import com.tieto.webwicker.api.web.WebWickerPageFactory;
 
-@Extension
-public class ProductPage extends BasePage {
+public class ProductPage extends WebWickerPage {
 	private static final long serialVersionUID = 2813026533242517627L;
 
-	public ProductPage(PageParameters parameters) {
-		super(parameters);
+	public ProductPage(String id, PageParameters parameters) {
+		super(id);
+	}
+	
+	@Extension
+	public static class ProductPageFactory extends WebWickerPageFactory {
+		private static final long serialVersionUID = 8557556866287865441L;
+
+		@Override
+		public WebWickerPage create(String id, PageParameters pageParameters) {
+			return new ProductPage(id, pageParameters);
+		}
+
+		@Override
+		public boolean isTopLevelPage() {
+			return false;
+		}
+
+		@Override
+		public int getOrder() {
+			return 0;
+		}
+
+		@Override
+		public String getPageTitle() {
+			return "Product";
+		}
+
+		@Override
+		public String getPageClassName() {
+			return ProductPage.class.getName();
+		}
+		
 	}
 }

@@ -1,4 +1,4 @@
-package com.tieto.ciweb.web;
+package com.tieto.webwicker.web;
 
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;

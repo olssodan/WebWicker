@@ -17,22 +17,21 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import ro.fortsoft.pf4j.Extension;
 
-import com.tieto.webwicker.api.web.BasePage;
-import com.tieto.webwicker.api.web.TopLevelPage;
 import com.tieto.webwicker.lib.web.LinkPanel;
+import com.tieto.webwicker.api.web.WebWickerPage;
+import com.tieto.webwicker.api.web.WebWickerPageFactory;
 import com.tieto.webwicker.eiffel.model.Commit;
 import com.tieto.webwicker.eiffel.provider.CommitProvider;
 
-@Extension
-public class CommitsPage extends BasePage implements TopLevelPage{
+public class CommitsPage extends WebWickerPage {
 	private static final long serialVersionUID = 1386775624549749182L;
 	private static final List<String> approved = Arrays.asList(new String[]{"+2"});
 	private static final List<String> verified = Arrays.asList(new String[]{"+1"});
 
 	public static final int ORDER = 100;
 
-	public CommitsPage(final PageParameters parameters) {
-		super(parameters);
+	public CommitsPage(final String id, final PageParameters parameters) {
+		super(id);
 
 		final CommitProvider commitProvider = new CommitProvider();
         
@@ -128,5 +127,35 @@ public class CommitsPage extends BasePage implements TopLevelPage{
 			return new AttributeAppender("style", "color:green");
 		}
 		return new AttributeAppender("style", "color:red");
+	}
+	
+	@Extension
+	public static class CommitsPageFactory extends WebWickerPageFactory {
+		private static final long serialVersionUID = -1749951474362697919L;
+
+		@Override
+		public WebWickerPage create(String id, PageParameters pageParameters) {
+			return new CommitsPage(id, pageParameters);
+		}
+
+		@Override
+		public boolean isTopLevelPage() {
+			return true;
+		}
+
+		@Override
+		public String getPageTitle() {
+			return "Commits";
+		}
+
+		@Override
+		public int getOrder() {
+			return ORDER;
+		}
+
+		@Override
+		public String getPageClassName() {
+			return CommitsPage.class.getName();
+		}
 	}
 }

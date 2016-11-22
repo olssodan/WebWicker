@@ -96,7 +96,7 @@ public class Configuration {
 	
 	public WebWickerPageFactory getPageFactory(final String page) {
 		if(!pageFactories.containsKey(page)) {
-			return pageFactories.get("Home");
+			return pageFactories.get("ERROR");
 		}
 		return pageFactories.get(page);
 	}

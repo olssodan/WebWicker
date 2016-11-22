@@ -14,14 +14,14 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import ro.fortsoft.pf4j.Extension;
 
-import com.tieto.webwicker.api.web.BasePage;
+import com.tieto.webwicker.api.web.WebWickerPage;
+import com.tieto.webwicker.api.web.WebWickerPageFactory;
 import com.tieto.webwicker.eiffel.model.Commit;
 import com.tieto.webwicker.eiffel.model.PatchSet;
 import com.tieto.webwicker.eiffel.model.WorkItem;
 import com.tieto.webwicker.eiffel.provider.CommitProvider;
 
-@Extension
-public class CommitPage extends BasePage {
+public class CommitPage extends WebWickerPage {
 	private static final long serialVersionUID = -1879929547602037385L;
 	private static final List<String> approved = Arrays.asList(new String[]{"+2"});
 	private static final List<String> partlyApproved = Arrays.asList(new String[]{"+1"});
@@ -30,12 +30,12 @@ public class CommitPage extends BasePage {
 	private static final List<String> notVerified = Arrays.asList(new String[]{"-1"});
 
 	@SuppressWarnings({"serial", "rawtypes"})
-	public CommitPage(PageParameters parameters) {
-		super(parameters);
+	public CommitPage(String id, PageParameters parameters) {
+		super(id);
 		
-		final String id = parameters.get("id").toString("");
+		final String commitId = parameters.get("id").toString("");
 		final CommitProvider commitProvider = new CommitProvider();
-		final Commit commit = commitProvider.getInstance(id);
+		final Commit commit = commitProvider.getInstance(commitId);
 		
 		final String codeReview = commit.getLatestPatchSet().getCodeReviewed();
 		final String verified = commit.getLatestPatchSet().getVerified();
@@ -121,5 +121,35 @@ public class CommitPage extends BasePage {
 			return new AttributeAppender("style", "color:green");
 		}
 		return new AttributeAppender("style", "color:red");
+	}
+	
+	@Extension
+	public static class CommitPageFactory extends WebWickerPageFactory {
+		private static final long serialVersionUID = -6004897366175631499L;
+
+		@Override
+		public WebWickerPage create(String id, PageParameters pageParameters) {
+			return new CommitPage(id, pageParameters);
+		}
+
+		@Override
+		public boolean isTopLevelPage() {
+			return false;
+		}
+
+		@Override
+		public String getPageTitle() {
+			return "Commit";
+		}
+
+		@Override
+		public int getOrder() {
+			return 0;
+		}
+
+		@Override
+		public String getPageClassName() {
+			return CommitPage.class.getName();
+		}
 	}
 }

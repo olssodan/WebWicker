@@ -17,6 +17,7 @@ public class ProjectsPage extends WebWickerPage {
     }
 	
 	public static class ProjectsPageFactory extends WebWickerPageFactory {
+		private static final long serialVersionUID = -6367835868232059889L;
 
 		@Override
 		public WebWickerPage create(String id, PageParameters pageParameters) {
