@@ -9,9 +9,10 @@ import ro.fortsoft.pf4j.PluginManager;
 import ro.fortsoft.wicket.plugin.PluginManagerInitializer;
 
 import com.tieto.webwicker.api.conf.Configuration;
+import com.tieto.webwicker.api.source.SourceFactory;
 import com.tieto.webwicker.api.web.WebWickerPageFactory;
 import com.tieto.webwicker.conf.ConfigurationImpl;
-import com.tieto.webwicker.persistance.InMemoryStorage;
+import com.tieto.webwicker.persistence.InMemoryStorage;
 import com.tieto.webwicker.web.ErrorPage.ErrorPageFactory;
 import com.tieto.webwicker.web.HomePage;
 import com.tieto.webwicker.web.StartPage.StartPageFactory;
@@ -53,16 +54,16 @@ public class WebWickerApplication extends WebApplication
 
 		PluginManager manager = getPluginManager();
 		
-		List<WebWickerPageFactory> list = manager.getExtensions(WebWickerPageFactory.class);
-		for(WebWickerPageFactory factory : list) {
+		List<WebWickerPageFactory> pageFactories = manager.getExtensions(WebWickerPageFactory.class);
+		for(WebWickerPageFactory factory : pageFactories) {
 			configuration.setPageFactory(factory.getPageClassName(), factory);
 		}
 		
-		// Force initiation of configuration
-		//Source source = new RabbitMQSource();
-		//source.init(Configuration.getInstance().getPersistanceLayer());
-		//Thread sourceThread = new Thread(source);
-		//sourceThread.start();
+		List<SourceFactory> sourceFactories = manager.getExtensions(SourceFactory.class);
+		for(SourceFactory factory : sourceFactories) {
+			Thread sourceThread = new Thread(factory.create(configuration));
+			sourceThread.start();
+		}
 	}
 	
 	public Configuration getConfiguration() {

@@ -2,6 +2,8 @@ package com.tieto.webwicker.eiffel.web.projects;
 
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
+import ro.fortsoft.pf4j.Extension;
+
 import com.tieto.webwicker.api.conf.Configuration;
 import com.tieto.webwicker.api.web.WebWickerPage;
 import com.tieto.webwicker.api.web.WebWickerPageFactory;
@@ -13,10 +15,9 @@ public class ProjectsPage extends WebWickerPage {
 
 	public ProjectsPage(final String id, final PageParameters parameters, final Configuration configuration) {
 		super(id);
-
-		// TODO Add your page's components here
     }
 	
+	@Extension
 	public static class ProjectsPageFactory extends WebWickerPageFactory {
 		private static final long serialVersionUID = 3168892865361642500L;
 
@@ -37,7 +38,7 @@ public class ProjectsPage extends WebWickerPage {
 
 		@Override
 		public String getPageTitle() {
-			return "Products";
+			return "Projects";
 		}
 
 		@Override

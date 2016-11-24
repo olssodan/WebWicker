@@ -1,4 +1,4 @@
-package com.tieto.webwicker.persistance;
+package com.tieto.webwicker.persistence;
 
 import java.util.Collections;
 import java.util.Comparator;
